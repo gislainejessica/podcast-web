@@ -1,6 +1,20 @@
 // import { Header } from '../components/Header'
+import { GetStaticProps } from 'next'
 
-export default function Home(props) {
+type Episode = {
+  id: string,
+  title: string,
+  members: string,
+  published_at: string,
+  thumbnail: string,
+  description: string
+}
+
+type HomeProps = {
+  episodes: Episode[]
+}
+
+export default function Home(props: HomeProps) {
   return (
     <>
       <h1> oi </h1>
@@ -9,7 +23,7 @@ export default function Home(props) {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch('http://localhost:4333/episodes')
   const data = await response.json()
 
