@@ -9,6 +9,8 @@ import ptBR from "date-fns/locale/pt-BR"
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
 
 import styles from "./home.module.scss"
+import { useContext } from 'react'
+import { PlayerContext } from '../contexts/PlayerContext'
 
 type Episode = {
   id: string,
@@ -27,6 +29,8 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext)
+
   return (
     <div className={styles.homePage}>
       <section className={styles.latestEpisode}>
@@ -45,8 +49,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 />
 
                 <div className={styles.episodeDetails}>
-                  <Link href={`episode/${episode.id}`}>
-                    <a >
+                  <Link href={`/episode/${episode.id}`}>
+                    <a>
                       {episode.title}
                     </a>
                   </Link>
@@ -55,7 +59,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <span> {episode.durationAsString} </span>
 
                 </div>
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Tocar Episódio" />
                 </button>
               </li>
@@ -82,28 +86,28 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           <tbody>
             {allEpisodes.map(episode => {
               return (
-                <tr key={episode.id}>
+                <tr key={episode?.id}>
                   <td style={{ width: 72 }}>
                     <Image
                       width={120}
                       height={120}
-                      src={episode.thumbnail}
-                      alt={episode.title}
+                      src={episode?.thumbnail}
+                      alt={episode?.title}
                       objectFit="cover"
                     />
                   </td>
                   <td>
-                    <Link href={`episode/${episode.id}`}>
+                    <Link href={`/episode/${episode?.id}`}>
                       <a >
-                        {episode.title}
+                        {episode?.title}
                       </a>
                     </Link>
                   </td>
-                  <td> {episode.members} </td>
-                  <td style={{ width: 100 }}> {episode.publishedAt} </td>
-                  <td> {episode.durationAsString} </td>
+                  <td> {episode?.members} </td>
+                  <td style={{ width: 100 }}> {episode?.publishedAt} </td>
+                  <td> {episode?.durationAsString} </td>
                   <td>
-                    <button type="button">
+                    <button type="button" onClick={() => play(episode)}>
                       <img src="/play-green.svg" alt="Tocar Episódios" />
                     </button>
                   </td>
