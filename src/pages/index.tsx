@@ -86,26 +86,26 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           <tbody>
             {allEpisodes.map(episode => {
               return (
-                <tr key={episode?.id}>
+                <tr key={episode.id}>
                   <td style={{ width: 72 }}>
                     <Image
                       width={120}
                       height={120}
-                      src={episode?.thumbnail}
-                      alt={episode?.title}
+                      src={episode.thumbnail}
+                      alt={episode.title}
                       objectFit="cover"
                     />
                   </td>
                   <td>
-                    <Link href={`/episode/${episode?.id}`}>
+                    <Link href={`/episode/${episode.id}`}>
                       <a >
-                        {episode?.title}
+                        {episode.title}
                       </a>
                     </Link>
                   </td>
-                  <td> {episode?.members} </td>
-                  <td style={{ width: 100 }}> {episode?.publishedAt} </td>
-                  <td> {episode?.durationAsString} </td>
+                  <td> {episode.members} </td>
+                  <td style={{ width: 100 }}> {episode.publishedAt} </td>
+                  <td> {episode.durationAsString} </td>
                   <td>
                     <button type="button" onClick={() => play(episode)}>
                       <img src="/play-green.svg" alt="Tocar Episódios" />
@@ -142,6 +142,7 @@ export const getStaticProps: GetStaticProps = async () => {
       thumbnail: episode.thumbnail,
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
+      url: episode.file.url,
     }
   })
 

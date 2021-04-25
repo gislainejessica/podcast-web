@@ -97,6 +97,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     description: data.description,
     duration: Number(data.file.duration),
     durationAsString: convertDurationToTimeString(Number(data.file.duration)),
+    url: data.file.url,
   }
 
   return {
