@@ -24,15 +24,14 @@ export function Player() {
 
   useEffect(() => {
     if (!audioRef.current) {
-      console.log('empty')
       return
     }
     if (audioRef.current) {
-      console.log('playing')
-      audioRef.current.play()
-    } else {
-      console.log('paused')
-      audioRef.current.pause()
+      if (isPlaying) {
+        audioRef.current.play()
+      } else {
+        audioRef.current.pause()
+      }
     }
   }, [isPlaying])
 
